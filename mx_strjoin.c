@@ -16,3 +16,4 @@ char *mx_strjoin(char const *s1, char const *s2) {
 
     return mx_strcat(mx_strdup(s1), s2);
 }
+

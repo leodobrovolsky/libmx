@@ -1,4 +1,6 @@
 #include <stdlib.h>
+char *mx_strnew(const int size);
+
 char *mx_itoa(int number) {
     int len = 0;
     int sign = 1;
@@ -9,7 +11,7 @@ char *mx_itoa(int number) {
     if (number <= 0)
         len++;
 
-    char *mitoa = malloc(sizeof(char) * (len + 1));
+    char *mitoa = mx_strnew(len);
     
     if (number == 0)
         mitoa[0] = '0';
