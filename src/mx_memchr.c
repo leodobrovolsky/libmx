@@ -1,7 +1,17 @@
 #include "libmx.h"
 
-void *mx_memchr(const void *s, int c, size_t n) {
-	c = n;
-	void *x = (void*) s;
-	return x;
+int mx_memcmp(const void *s1, const void *s2, size_t n) {
+    char *c1 = (char*) s1;
+    char *c2 = (char*) s2;
+    unsigned long i = 0;
+
+    
+    while (i < n) {
+        if (!c1[i] && !c2[i] && c1[i] != c2[i])
+            break;
+        i++;
+    }
+    if (i == n)
+        return 0;
+    return c1[i] - c2[i];
 }
