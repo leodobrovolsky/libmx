@@ -16,9 +16,10 @@ OBJS = mx_printchar.o mx_print_unicode.o mx_printstr.o mx_print_strarr.o mx_prin
 
 CFLAG = -std=c11 -Wall -Wextra -Werror -Wpedantic
 
+
 all: install clean
 install:
-	@mkdir $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 	@cp $(SRC) .
 	@cp $(INC) .
 	@clang $(CFLAG) -c $(SRCS) -I $(INCS)
@@ -32,4 +33,4 @@ clean:
 	@rm -rf $(INCS)
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(OBJS)
-reinstall: uninstall all
+reinstall: uninstall clean all

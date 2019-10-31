@@ -2,7 +2,7 @@
 
 void mx_print_strarr(char **arr, const char *delim) {
  	int i = 0;
-    if (!delim)
+    if (!delim || !arr)
     	return;
     while(arr[i]) {
     	if (i != 0)

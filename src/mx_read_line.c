@@ -1,6 +1,6 @@
 #include "libmx.h"
 
-int mx_read_line(char **lineptr, int buf_size, int delim, const int fd) {
+int mx_read_line(char **lineptr, int buf_size, char delim, const int fd) {
     char buf;
     int i = 0;
     

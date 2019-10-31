@@ -4,7 +4,7 @@ int mx_count_substr(const char *str, const char *sub) {
     int counts = 0;
 
     if (!str || !sub)
-        return -2;
+        return -1;
 
     char *temp = mx_strstr(str, sub);
     while (temp != NULL) { 

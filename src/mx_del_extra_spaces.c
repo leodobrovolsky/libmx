@@ -46,6 +46,10 @@ char *mx_del_extra_spaces(const char *str) {
         i++;
     }
     len += mx_count_words_space(str) - 1;
+    
+    if (len < 0)
+        return mx_strdup("\0");
+
     char *result = mx_strnew(len);
     
     i = 0;
