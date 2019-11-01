@@ -85,7 +85,7 @@ static void mx_swap_list(t_list **list, int elem1, int elem2) {
 t_list *mx_sort_list(t_list *list, bool (*cmp)(void *, void *)) {
     int min_elem = 0;
     int size = mx_list_size(list);
-
+    write(1, "4", 1);
     if (size <= 1)
         return list;
     
