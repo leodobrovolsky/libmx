@@ -2,7 +2,7 @@
 
 char *mx_file_to_str(const char *file) {
     int fd = open(file, O_RDONLY);
-    char *buf;
+    char *buf = NULL;
     char *str = NULL;
 
     if (fd != -1) {

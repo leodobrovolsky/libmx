@@ -16,6 +16,9 @@ char *mx_strtrim(const char *str) {
     
     while (str[end] && mx_isspace(str[end]))
         end--;
-
+    
+    if (end < begin)
+        return mx_strnew(0);
+         
     return mx_strncpy(mx_strnew(end - begin + 1), &str[begin], end - begin + 1);
 }
