@@ -4,9 +4,9 @@ void *mx_memccpy(void *restrict dst, const void *restrict src, int c, size_t n) 
 	char *s1 = (char*) dst;
 	char *s2 = (char*) src;
 
-    for (unsigned long i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
     	if (s2[i] == c)
-    		return NULL;
+    		return src + (i + 1);
     	s1[i] = s2[i];
     }
 

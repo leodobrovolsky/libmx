@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <malloc/malloc.h>
 #include <string.h>
 #include <stdarg.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 
 int mx_strlen(const char *s) {
     int i = 0;
@@ -181,13 +183,33 @@ char *mx_strjoin(char const *s1, char const *s2) {
 }
 
 
+
+char *mx_file_to_str(const char *file) {
+    int fd = open(file, O_RDONLY);
+    char *buf = NULL;
+    char *str = NULL;
+   
+    if (fd != -1) {
+        while(read(1, buf, 1) > 0) {
+            /*if (!buf)
+                return NULL;*/
+             printf("%s\n", buf);
+  
+            mx_strjoin(str, buf);
+        }   
+    }
+    else
+        return NULL;
+
+    return str;
+}
+
+
 int main () {
-	char *temp1 = mx_strdup("1234566789011111abc"); 
-	char *temp2 = mx_strdup("bc");
-	
-	char *temp = mx_strjoin(temp1, temp2);
-    printf("%s\n", temp);
-    printf("%zu\n", malloc_size(temp));
-    system("leaks -q a.out");
+	char *file = "test.txt";
+    printf("%s", mx_file_to_str(file));
+
+
+    //system("leaks -q a.out");
 }
 

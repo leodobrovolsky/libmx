@@ -11,5 +11,6 @@ void mx_pop_back(t_list **head) {
         present = present -> next;
     }
     last -> next = NULL;
+    free(present -> data);
     free(present);
 }
