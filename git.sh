@@ -1,7 +1,7 @@
 if [[ $#  > 0 ]]
 then
 	for i in $@
-        do
+    do
 		git add $i
 	done
 else 
@@ -9,7 +9,10 @@ else
 fi
 git status
 read -p "Press y to confirm" -n 1 -r choice
-if [[ $choise == "y" ]]
+
+
+if [[ $choice == "y" ]]
 then 
-	ls
+	git commit -m "$(who)"
+	git push
 fi
