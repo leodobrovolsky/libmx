@@ -1,13 +1,5 @@
 #include "libmx.h"
 
-static void mx_swap_str(char **s1, char **s2) {
-    char *temp = NULL;
-    temp = *s1;
-    *s1 = *s2;
-    *s2 = temp;
-}
-
-
 int mx_quicksort(char **arr, int left, int right) {
     if (!arr)
         return -1;

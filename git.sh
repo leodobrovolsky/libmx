@@ -13,6 +13,6 @@ read -p "Press y to confirm" -n 1 -r choice
 
 if [[ $choice == "y" ]]
 then 
-	git commit -m "$(who)"
+	git commit -m "$(who -m)"
 	git push
 fi

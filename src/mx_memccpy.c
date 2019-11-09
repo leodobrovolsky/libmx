@@ -6,7 +6,7 @@ void *mx_memccpy(void *restrict dst, const void *restrict src, int c, size_t n) 
 
     for (size_t i = 0; i < n; i++) {
     	if (s2[i] == c)
-    		return src + (i + 1);
+    		return (void*) (s2 + (i + 1));
     	s1[i] = s2[i];
     }
 
