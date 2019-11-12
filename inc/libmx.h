@@ -71,6 +71,7 @@ t_list *mx_sort_list(t_list *lst, bool (*cmp)(void *, void *));
 
 //my_func
 int mx_atoi(const char *str);
+int mx_super_atoi(const char *str);
 char *mx_strchr(const char *s, int c);
 int mx_strncmp(const char *s1, const char *s2, int n);
 bool mx_isspace(char c);
@@ -81,4 +82,5 @@ void mx_push_index(t_list **list, void *data, int index);
 void mx_pop_index(t_list **list, int index);
 void mx_swap_list(t_list **list, int elem1, int elem2);
 void mx_print_error(const char *str, int exit_code);
+char *mx_strtrim_char(const char *str, char c);
 #endif

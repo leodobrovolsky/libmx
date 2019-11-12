@@ -10,6 +10,8 @@ char **mx_strsplit(const char *s, char c) {
     int begin = 0;
     int end = 0;
     int size = mx_count_words(s, c);
+    char *tmp = mx_strtrim_char(s, c);
+    
 
     if (size == 0)
     	return NULL;
@@ -17,20 +19,23 @@ char **mx_strsplit(const char *s, char c) {
     char **result = (char**) malloc(sizeof(char*) * size);
 
 
-    while(s[i]) {
-    	while (s[i] && s[i] == c)
+    while(tmp[i]) {
+    	while (tmp[i] && tmp[i] == c)
     		i++;
 
         begin = i;
-
-	    while (s[i] && s[i] != c) 
+    
+	    while (tmp[i] && tmp[i] != c) 
 	    	i++;
 
 	    end = i;
-
-        result[k] = mx_strndup(&s[begin], end - begin);
+        
+        result[k] = mx_strndup(&tmp[begin], end - begin);
         k++;
     }
+    
+    result[k] = NULL;  
+    mx_strdel(&tmp);
 
     return result;
 }
