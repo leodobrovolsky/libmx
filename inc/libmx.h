@@ -80,7 +80,6 @@ int mx_count_words_space(const char *str);
 void mx_swap_str(char **s1, char **s2);
 void mx_push_index(t_list **list, void *data, int index);
 void mx_pop_index(t_list **list, int index);
-void mx_swap_list(t_list **list, int elem1, int elem2);
 void mx_print_error(const char *str, int exit_code);
 char *mx_strtrim_char(const char *str, char c);
 #endif

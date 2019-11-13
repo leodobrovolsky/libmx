@@ -26,6 +26,8 @@ int mx_quicksort_andriy(char **arr, int left, int right) {
     return count;
 }
 
+
+
 int main () {
     // char *str = mx_file_to_str("test");
     // char **arr = mx_strsplit(str, ' ');
@@ -43,7 +45,18 @@ int main () {
  
     // for (int i = 0; i < size; i++)
     //     printf("%s  %s  %s\n", arr[i], arr1[i], arr2[i]);
+    // int res;
+    // char *str;
+    // int fd = open("test.txt", O_RDONLY);
+    // res = mx_read_line(&str, 20, 'f', fd);
+    // printf("res %s %d\n", str, res); 
+    // res = mx_read_line(&str, 35, 't', fd);
+    // printf("res %s %d\n", str, res); 
+    // res = mx_read_line(&str, 4, '.', fd);
+    // printf("res %s %d\n", str, res); 
+    // close(fd);
 
 
+    system("leaks -q a.out");
     return 0;
 }
