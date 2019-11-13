@@ -2,30 +2,41 @@
 
 int mx_read_line(char **lineptr, int buf_size, char delim, const int fd) {
     static char *str = NULL;
-    char *buf = malloc(buf_size);
-    int read_val = -1;
-    int index = 0;
-    
-    while(read_val) {
+    static int last_fd = 0;
+    char *buf = mx_strnew(buf_size);
+    int read_val = 1;
+    int delim_index = 0;
+    mx_strdel(lineptr);
+
+    if (last_fd == fd) {
+        *lineptr = mx_strdup(str);
+        str = mx_strnew(buf_size);
+        printf("line: %s\n", *lineptr);
+    }
+
+
+    while (read_val > 0) {
         read_val = read(fd, buf, buf_size);
-        
-        if (read_val > 0) {
-            str = mx_strjoin(str, buf);
-            if (mx_get_char_index(buf, delim) == -1)
-                continue;
+
+        if (read_val == 0)
+            return -1;
+        else {
+            delim_index = mx_get_char_index(buf, delim);
+            if (delim_index == -1) {
+                *lineptr = mx_strjoin(*lineptr, buf);
+                buf = mx_strnew(buf_size);
+            }
             else {
-                for (index = mx_strlen(str) - 1; index >= 0; index--)
-                    if (str[index] == delim)
-                        break;
-                *lineptr = mx_strndup(str, index);
+                *lineptr = mx_strndup(*lineptr, mx_strlen(*lineptr) + delim_index);
+                printf("test %s\n", mx_strndup(buf, delim_index));
+                str = mx_strdup(&buf[delim_index + 1]);
+                mx_strdel(&buf);
+                last_fd = fd;
                 return mx_strlen(*lineptr);
             }
         }
-        else if (read_val == 0)
-            return 0;
-        else
-            return -1;
     }
-    return -1;
+
+    return -2;
 }
 
