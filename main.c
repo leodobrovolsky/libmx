@@ -126,45 +126,46 @@ int mx_read_lin(char **lineptr, int buf_size, char delim, const int fd) {
     }
     *lineptr = mx_strdup(tmp_s);
     mx_strdel(&tmp_s);
+    mx_strdel(&buf);
     return mx_strlen(*lineptr);
 }
 
 
 int main () {
-    char *str = mx_file_to_str("test");
-    char **arr1 = mx_strsplit(str, ' ');
-    char **arr2 = mx_strsplit(str, ' ');
-    int size = 0;
+    // char *str = mx_file_to_str("test");
+    // char **arr1 = mx_strsplit(str, ' ');
+    // char **arr2 = mx_strsplit(str, ' ');
+    // int size = 0;
 
-    while(arr1[size])
-        size++;
+    // while(arr1[size])
+    //     size++;
 
 
-    printf("valera %d\n", mx_quicksort_valera(arr1, 0, size - 1));
-    printf("andriy %d\n", mx_quicksort_andriy(arr2, 0, size - 1));
-    printf("size %d\n", size);
+    // printf("valera %d\n", mx_quicksort_valera(arr1, 0, size - 1));
+    // printf("andriy %d\n", mx_quicksort_andriy(arr2, 0, size - 1));
+    // printf("size %d\n", size);
  
-    for (int i = 0; i < size; i++)
-        printf("%s  %s\n", arr1[i], arr2[i]);
+    // for (int i = 0; i < size; i++)
+    //     printf("%s  %s\n", arr1[i], arr2[i]);
 
 
     int res;
     char *str = NULL;
-    int fd = open("test.txt", O_RDONLY);
+    int fd = open("test", O_RDONLY);
     
-    res = mx_read_line(&str, 20, 'f', fd);
+    res = mx_read_lin(&str, 20, 'F', fd);
     printf("res %s %d\n", str, res); 
-
-    res = mx_read_line(&str, 35, 't', fd);
+    mx_strdel(&str);
+    res = mx_read_lin(&str, 35, 'T', fd);
     printf("res %s %d\n", str, res); 
-    
-    res = mx_read_line(&str, 4, '.', fd);
+    mx_strdel(&str);
+    res = mx_read_lin(&str, 4, 'D', fd);
     printf("res %s %d\n", str, res); 
-    
+    mx_strdel(&str);
     close(fd);
 
 
-    // const int MAX_LEN = 1000;
+    // const int MAX_LEN = 10000;
     // const int MAX_INT = 2147483647;
     // srand(time(NULL)); 
     // int len = rand() % MAX_LEN;
@@ -196,16 +197,16 @@ int main () {
     //     buf_size = rand() % len;
     //     len = mx_strlen(str);
     //     str_new = mx_strchr(str, delim);
-    //     printf("buf_size %d %c\n", buf_size, delim);
+    //     //printf("buf_size %d %c\n", buf_size, delim);
     //     if (str_new) {
     //         nbytes = mx_read_lin(&func_str, buf_size, delim, fd);
     //         len_str_new = len - mx_strlen(str_new);
     //         if (mx_strcmp(func_str, mx_strndup(str, len_str_new))) {
-    //             printf("Error:\ndelim: %c\n< %s\n> %s\n", delim, func_str, mx_strndup(str, len_str_new));
+    //             printf("Error:\ndelim: %c\nUser %s\nOrac %s\n", delim, func_str, mx_strndup(str, len_str_new));
     //             break;
     //         }
     //         else if (nbytes != len_str_new) {
-    //             printf("Error:\ndelim: %c\n< %d\n> %d\n", delim, nbytes, len_str_new);
+    //             printf("Error:\ndelim: %c\nUser %d\nOrac %d\n", delim, nbytes, len_str_new);
     //             break;               
     //         }
     //         else
@@ -215,9 +216,8 @@ int main () {
     //     }
     // }
     // close(fd);
-    // char *str = mx_file_to_str("test");
-    // printf("%s\n", str);
 
-    // system("leaks -q a.out");
+
+    system("leaks -q a.out");
     return 0;
 }
