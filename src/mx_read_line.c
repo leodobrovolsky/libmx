@@ -11,10 +11,9 @@ int mx_read_line(char **lineptr, int buf_size, char delim, const int fd) {
     if (last_fd == fd) {
         *lineptr = mx_strdup(str);
         str = mx_strnew(buf_size);
-        printf("line: %s\n", *lineptr);
     }
 
-
+    
     while (read_val > 0) {
         read_val = read(fd, buf, buf_size);
 
@@ -27,8 +26,11 @@ int mx_read_line(char **lineptr, int buf_size, char delim, const int fd) {
                 buf = mx_strnew(buf_size);
             }
             else {
-                *lineptr = mx_strndup(*lineptr, mx_strlen(*lineptr) + delim_index);
-                printf("test %s\n", mx_strndup(buf, delim_index));
+                if (*lineptr)
+                    *lineptr = mx_strndup(*lineptr, mx_strlen(*lineptr) - read_val + delim_index);
+                else
+                    *lineptr = mx_strndup(buf, delim_index);
+     
                 str = mx_strdup(&buf[delim_index + 1]);
                 mx_strdel(&buf);
                 last_fd = fd;
