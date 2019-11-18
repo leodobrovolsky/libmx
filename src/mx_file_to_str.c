@@ -1,6 +1,6 @@
 #include "libmx.h"
 
-char *mx_file_to_st(const char *file) {
+char *mx_file_to_str(const char *file) {
     int len = 0;
     int fd = open(file, O_RDONLY);
     char buf;

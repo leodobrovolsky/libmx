@@ -149,75 +149,76 @@ int main () {
     //     printf("%s  %s\n", arr1[i], arr2[i]);
 
 
-    int res;
-    char *str = NULL;
-    int fd = open("test", O_RDONLY);
+    // int res;
+    // char *str = NULL;
+    // int fd = open("test", O_RDONLY);
     
-    res = mx_read_lin(&str, 20, 'F', fd);
-    printf("res %s %d\n", str, res); 
-    mx_strdel(&str);
-    res = mx_read_lin(&str, 35, 'T', fd);
-    printf("res %s %d\n", str, res); 
-    mx_strdel(&str);
-    res = mx_read_lin(&str, 4, 'D', fd);
-    printf("res %s %d\n", str, res); 
-    mx_strdel(&str);
-    close(fd);
-
-
-    // const int MAX_LEN = 10000;
-    // const int MAX_INT = 2147483647;
-    // srand(time(NULL)); 
-    // int len = rand() % MAX_LEN;
-    // char *str = mx_strnew(len);
-
-    // for (int i = 0; i < len; i++)
-    //     str[i] = 65 + rand() % 26;
-
-    // int fp = open("test", O_WRONLY);
-    // int ind = mx_write_to_file(str, fp);
-    
-    // if (ind)
-    //     printf("Write OK\n");
-    // else
-    //     printf("Write Error\n");
-    // close(fp);
-    
-    // printf("str = %s\nlen = %d\n", str, len);
-    
-    // int delim = 65 + rand() % 26;
-    // int len_str_new = 0;
-    // int buf_size = rand() % (MAX_INT / 10000);
-    // char *str_new = mx_strchr(str, str[0]);
-    // char *func_str = NULL;
-    // int nbytes = 0;
-    // int fd = open ("test", O_RDONLY);
-
-    // while (str_new) {
-    //     buf_size = rand() % len;
-    //     len = mx_strlen(str);
-    //     str_new = mx_strchr(str, delim);
-    //     //printf("buf_size %d %c\n", buf_size, delim);
-    //     if (str_new) {
-    //         nbytes = mx_read_lin(&func_str, buf_size, delim, fd);
-    //         len_str_new = len - mx_strlen(str_new);
-    //         if (mx_strcmp(func_str, mx_strndup(str, len_str_new))) {
-    //             printf("Error:\ndelim: %c\nUser %s\nOrac %s\n", delim, func_str, mx_strndup(str, len_str_new));
-    //             break;
-    //         }
-    //         else if (nbytes != len_str_new) {
-    //             printf("Error:\ndelim: %c\nUser %d\nOrac %d\n", delim, nbytes, len_str_new);
-    //             break;               
-    //         }
-    //         else
-    //         	printf("OK\n");
-    //         str = str_new + 1;
-    //         delim = 65 + rand() % 26;
-    //     }
-    // }
+    // res = mx_read_lin(&str, 20, 'F', fd);
+    // printf("res %s %d\n", str, res); 
+    // mx_strdel(&str);
+    // res = mx_read_lin(&str, 35, 'T', fd);
+    // printf("res %s %d\n", str, res); 
+    // mx_strdel(&str);
+    // res = mx_read_lin(&str, 4, 'D', fd);
+    // printf("res %s %d\n", str, res); 
+    // mx_strdel(&str);
     // close(fd);
 
 
-    system("leaks -q a.out");
+    const int MAX_LEN = 50;
+    const int MAX_INT = 2147483647;
+    srand(time(NULL)); 
+    int len = rand() % MAX_LEN;
+    char *str = mx_strnew(len);
+
+    for (int i = 0; i < len; i++)
+        str[i] = 65 + rand() % 26;
+
+    int fp = open("test", O_WRONLY);
+    int ind = mx_write_to_file(str, fp);
+    
+    if (ind)
+        printf("Write OK\n");
+    else
+        printf("Write Error\n");
+    close(fp);
+    
+    printf("str = %s\nlen = %d\n", str, len);
+    
+    int delim = 65 + rand() % 26;
+    int len_str_new = 0;
+    int buf_size = rand() % 10 + 1;
+    char *str_new = mx_strchr(str, str[0]);
+    char *func_str = NULL;
+    int nbytes = 0;
+    int fd = open ("test", O_RDONLY);
+
+    while (str) {
+        buf_size = rand() % 10 + 1;
+        len = mx_strlen(str);
+        str_new = mx_strchr(str, delim);
+        printf("buf_size %d %c\n", buf_size, delim);
+        if (str) {
+            nbytes = mx_read_line(&func_str, buf_size, delim, fd);
+            len_str_new = len - mx_strlen(str_new);
+            if (mx_strcmp(func_str, mx_strndup(str, len_str_new))) {
+                printf("Error:\ndelim: %c\nUser %s\nOrac %s\n", delim, func_str, mx_strndup(str, len_str_new));
+                break;
+            }
+            else if (nbytes != len_str_new) {
+                printf("Error:\ndelim: %c\nUser %d\nOrac %d\n", delim, nbytes, len_str_new);
+                break;               
+            }
+            else
+            	printf("OK:\ndelim: %c\nUser %s\nOrac %s\n", delim, func_str, mx_strndup(str, len_str_new));
+            str = str_new + 1;
+            delim = 65 + rand() % 26;
+        }
+    }
+    close(fd);
+
+
+
+    //system("leaks -q a.out");
     return 0;
 }
