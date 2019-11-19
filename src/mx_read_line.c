@@ -1,73 +1,51 @@
 #include "libmx.h"
 
 int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
-    static char *str = NULL;
+    static char *remainder = NULL;
     static int last_fd = -2;
     char *buf = mx_strnew(buf_size);
-    char *temp = NULL;
-    size_t read_val = 1;
-    size_t i = 0;
-    size_t k = 0;
-    int index = 0;
-
-    printf("str: %s\n", str);
+    
+    int bytes = 0;
+    int delim_index = -1;
+    char *tmp_s = NULL;
+    char *tmp = NULL;
 
     mx_strdel(lineptr);
-
     
-    if (last_fd == (int) fd)  
-        temp = mx_strdup(str);
+    if (last_fd != fd)
+        mx_strdel(&remainder);
     
-    if (temp == NULL)
-        temp = mx_strnew(0);
-    
-    while (read_val > 0) {
-        read_val = read(fd, buf, buf_size);
-        index = mx_get_char_index(temp, delim);
-
-        if (index >= 0) {
-            mx_strdel(&str);
-            str = mx_strndup(&temp[index + 1], buf_size - index); 
-            *lineptr = mx_strndup(temp, index);
-            mx_strdel(&temp);
-            mx_strdel(&buf); 
-            return index;       
-        }       
-
-        if (read_val == 0) {
-            mx_strdel(&buf);
-            mx_strdel(&temp);
-            mx_strdel(&str);
-            return -1;
+    if (remainder)
+        tmp_s = mx_strdup(remainder);
+   
+    while ((bytes = read(fd, buf, buf_size)) >= 0) {
+        buf[bytes] = '\0';
+        tmp = mx_strjoin(tmp_s, buf);
+        mx_strdel(&tmp_s);
+        tmp_s = mx_strdup(tmp);
+        mx_strdel(&tmp);
+        delim_index = mx_get_char_index(tmp_s, delim);
+        if (delim_index != -1) {
+            tmp_s[delim_index] = '\0';
+            if (remainder) {
+                mx_strdel(&remainder);
+            }
+            remainder = mx_strdup(tmp_s + delim_index + 1);
+            break;
         }
-        else if (read_val > 0) {
-            k = mx_strlen(temp);
-            i = 0;
-
-            temp = mx_realloc(temp, k + buf_size);
-
-            while(buf[i] && buf[i] != delim) {
-                temp[k] = buf[i];
-                k++;
-                i++;
+        if (bytes == 0) {
+            if (remainder) {
+                mx_strdel(&remainder);
             }
-
-            temp[k] = '\0';
-          
-            if (i < buf_size) {
-                mx_strdel(&str);
-                str = mx_strndup(&buf[i + 1], buf_size - i);
-                mx_strdel(&buf);
-                *lineptr = mx_strdup(temp);
-                mx_strdel(&temp);
-                last_fd = (int) fd;
-                return mx_strlen(*lineptr);
-            }
-            mx_strdel(&buf);
-            buf = mx_strnew(buf_size);
+            break;
         }
     }
-
-    return -2;
+    if (bytes == -1) {
+        return -1;
+    }
+    *lineptr = mx_strdup(tmp_s);
+    mx_strdel(&tmp_s);
+    mx_strdel(&buf);
+    last_fd = fd;
+    return mx_strlen(*lineptr);
 }
-

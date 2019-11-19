@@ -2,16 +2,13 @@
 
 void *mx_realloc(void *ptr, size_t size) {
 	if (!ptr)
-		return NULL;
+		return malloc(size);
     
-    size_t len = mx_strlen(ptr);
+    size_t len = malloc_size(ptr);
     void  *str = NULL;
     
-    if (len > size) {
-        str = malloc(len);
-        str = mx_memcpy(str, ptr, len);
-        free(ptr);
-        return str;
+    if (len >= size) {
+        return ptr;
     }
     else {
         str = malloc(size);

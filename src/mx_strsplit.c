@@ -1,6 +1,5 @@
 #include "libmx.h"
 
-
 char **mx_strsplit(const char *s, char c) {
     if (!s)
         return NULL;
@@ -11,7 +10,6 @@ char **mx_strsplit(const char *s, char c) {
     int end = 0;
     int size = mx_count_words(s, c);
     char *tmp = mx_strtrim_char(s, c);
-    
 
     if (size == 0)
     	return NULL;
