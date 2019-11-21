@@ -1,6 +1,7 @@
 #include "inc/libmx.h"
 #include <time.h>
 #include <string.h>
+#include <stdio.h>
 static void mx_swap(char **arr, int i, int j, int *swaps){
     char *c;
 
@@ -82,29 +83,38 @@ int mx_quicksort_andriy(char **arr, int left, int right) {
 
 
 int mx_quicksort_my(char **arr, int left, int right) {
-    int count = 0;
-    if(arr == NULL) return -1;
-    if(left < right)
-    {
-        int low = left, high = right;
-        char *middle = arr[(low + high) / 2];
-        while(low <= high)
-        {
-            while(mx_strlen(arr[low]) < mx_strlen(middle)) low++;
-            while(mx_strlen(arr[high]) > mx_strlen(middle)) high--;
-            if(low <= high)
-            {
-                if(arr[low] != arr[high]
-                    && mx_strlen(arr[low]) != mx_strlen(arr[high])) count++;
-                mx_swap_str(&arr[low],&arr[high]);
-                low++;
-                high--;
+    if (!arr)
+        return -1;
+
+    static int shift = 0;
+    int mid = (left + right) / 2;
+    int begin = left;
+    int end = right;   
+    
+    if (left < right) {
+        while (begin < end) {
+            while(mx_strlen(arr[begin]) - mx_strlen(arr[mid]) < 0)
+                begin++;
+
+            while (mx_strlen(arr[end]) - mx_strlen(arr[mid]) > 0) 
+                end--;
+
+            if (begin <= end) {  
+                mx_swap_str(&arr[begin], &arr[end]);
+                if (mx_strlen(arr[begin]) != mx_strlen(arr[end]))
+                    shift++;
+                begin++;
+                end--;
             }
-        }
-        count += mx_quicksort_andriy(arr, left, high);
-        count += mx_quicksort_andriy(arr, low, right);
+        }    
+
+        if (end > left) 
+            mx_quicksort_my(arr, left, end);
+
+        if (begin < right) 
+            mx_quicksort_my(arr, begin, right);
     }
-    return count;
+    return shift;
 }
 
 
@@ -163,8 +173,8 @@ int main () {
     close(fp);
 
 
-    char **arr1 = strsplit(str, ' ');
-    char **arr2 = strsplit(str, ' ');
+    char **arr1 = mx_strsplit(str, ' ');
+    char **arr2 = mx_strsplit(str, ' ');
 
     int size1 = 0;
     int size2 = 0;
@@ -183,13 +193,13 @@ int main () {
     }
 
     int sort1 = mx_quicksort_valera(arr1, 0, size1 - 1);
-    int sort2 = mx_quicksort_valera(arr2, 0, size2 - 1);
+    int sort2 = mx_quicksort_my(arr2, 0, size2 - 1);
  
-    // for (int i = 0; i < size; i++)
-    //     printf("%s  %s\n", arr1[i], arr2[i]);
+    for (int i = 0; i < size1; i++)
+        printf("%s  %s\n", arr1[i], arr2[i]);
     
-    printf("my %d\n", sort1);
-    printf("andriy %d\n", sort2);
+    printf("valera %d\n", sort1);
+    printf("my %d\n", sort2);
     
 
     // int res;

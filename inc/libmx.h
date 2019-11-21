@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <fcntl.h>
-#include <stdio.h>
 #include <malloc/malloc.h>
 
 typedef struct  s_list {
