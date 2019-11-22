@@ -14,7 +14,7 @@ char **mx_strsplit(const char *s, char c) {
     if (size == 0)
     	return NULL;
 
-    char **result = (char**) malloc(sizeof(char*) * size);
+    char **result = (char**) malloc(sizeof(char*) * (size + 1));
 
 
     while(tmp[i]) {

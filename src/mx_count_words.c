@@ -1,6 +1,8 @@
 #include "libmx.h"
 
 int mx_count_words(const char *str, char delimiter) {
+    if (!str)
+        return -1;
     int i = 0;
     int indifier = 0;
     int words = 0;

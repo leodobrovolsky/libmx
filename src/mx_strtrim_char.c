@@ -1,6 +1,8 @@
 #include "libmx.h"
 
 char *mx_strtrim_char(const char *str, char c) {
+	if (!str)
+		return NULL;
     int begin = 0;
     int end = mx_strlen(str) - 1;
 
