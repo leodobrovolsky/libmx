@@ -27,8 +27,11 @@ int mx_get_char_index(const char *str, char c);
 int mx_get_substr_index(const char *str, const char *sub);
 unsigned long mx_hex_to_nbr(const char *hex);
 bool mx_isdigit(int c);
+bool mx_islower(int c);
 bool mx_isspace(char c);
+bool mx_isupper(int c);
 char *mx_itoa(int number);
+int mx_linear_search(char **arr, const char *s);
 int mx_list_size(t_list *list);
 void *mx_memccpy(void *restrict dst, const void *restrict src, int c, size_t n);
 void *mx_memchr(const void *s, int c, size_t n);
@@ -44,7 +47,6 @@ void mx_pop_index(t_list **list, int index);
 double mx_pow(double n, unsigned int pow);
 void mx_print_error(const char *str, int exit_code);
 void mx_print_strarr(char **arr, const char *delim);
-void mx_print_unicode(wchar_t c);  
 void mx_printchar(char c);
 void mx_printint(int n);
 void mx_printstr(const char *s);
@@ -74,5 +76,7 @@ char *mx_strtrim_char(const char *str, char c);
 int mx_super_atoi(const char *str);
 void mx_swap_char(char *s1, char *s2);
 void mx_swap_str(char **s1, char **s2);
+int mx_tolower(int c);
+int mx_toupper(int c);
 #endif
 

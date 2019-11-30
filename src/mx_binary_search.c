@@ -6,8 +6,7 @@ int mx_binary_search(char **arr, int size, const char *s, int *count) {
     int right = size;
     long mid = 0;
 
-
-    while(left < right) {
+    while (left < right) {
         if (*count >= size)
             break;
         (*count) += 1;
@@ -19,9 +18,6 @@ int mx_binary_search(char **arr, int size, const char *s, int *count) {
         else
             right = mid;
     }
-
-
-
     (*count) = 0;
     return -1;
 }
