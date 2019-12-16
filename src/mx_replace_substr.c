@@ -14,7 +14,7 @@ char *mx_replace_substr(const char *str, const char *sub, const char *replace) {
 
     if (!str || !sub || !replace)
         return NULL;
-    result = mx_strnew(mx_strlen(str) 
+    result = mx_strnew(mx_strlen(str)
         + mx_count_substr(str, sub) * (mx_strlen(replace) - mx_strlen(sub)));
     while(str[i]) {
         while (str[i] && mx_strncmp(&str[i], sub, mx_strlen(sub))) {

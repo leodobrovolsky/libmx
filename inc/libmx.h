@@ -18,7 +18,7 @@ int mx_bubble_sort(char **arr, int size);
 int mx_count_substr(const char *str, const char *sub);
 int mx_count_words(const char *str, char delimiter);
 int mx_count_words_space(const char *str);
-bool mx_create_file(char *file);
+bool mx_create_file(char *file, char *mode);
 t_list  *mx_create_node(void *data);
 char *mx_del_extra_spaces(const char *str);
 void mx_del_strarr(char ***arr);
@@ -80,6 +80,6 @@ void mx_swap_char(char *s1, char *s2);
 void mx_swap_str(char **s1, char **s2);
 int mx_tolower(int c);
 int mx_toupper(int c);
-bool mx_write_to_file(const char *file, const char *str);
+bool mx_write_to_file(const char *file, const char *str, char mode);
 #endif
 

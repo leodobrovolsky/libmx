@@ -3,7 +3,7 @@
 int mx_file_len(const char *file) {
     int fd = open(file, O_RDONLY);
     char buf;
-    int len = 0; 
+    int len = 0;
 
     if (fd != -1) {
         while(read(fd, &buf, 1)) {
@@ -12,8 +12,8 @@ int mx_file_len(const char *file) {
             len++;
         }
     }
-    else 
+    else
         return -1;
     close(fd);
-    return len;   
+    return len;
 }
