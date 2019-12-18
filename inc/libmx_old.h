@@ -48,7 +48,6 @@ void mx_pop_front(t_list **head);
 void mx_pop_index(t_list **list, int index);
 double mx_pow(double n, unsigned int pow);
 void mx_print_error(const char *str, int exit_code);
-void mx_print_format_str(char *str, char location, char symbol, int size);
 void mx_print_strarr(char **arr, const char *delim);
 void mx_printchar(char c);
 void mx_printint(int n);
